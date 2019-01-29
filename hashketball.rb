@@ -215,4 +215,31 @@ else
 end
 end
 
-puts player_stats('Ben Gordon')
+#Build a method, big_shoe_rebounds, that will return the number of rebounds associated with the player that has
+#the largest shoe size. Break this one down into steps:
+
+#First, find the player with the largest shoe size
+#Then, return that player's number of rebounds
+#Remember to think about return values here.
+#Use binding.pry to drop into your method and understand what it is returning and why.
+
+def big_shoe_rebounds
+  shoe_size =0
+  rebounds = 0
+game_hash[:home][:players].each do |player,attribute_hash|
+  if attribute_hash[:shoe] > shoe_size
+    shoe_size = attribute_hash[:shoe]
+    rebounds  = attribute_hash[:rebounds]
+game_hash[:away][:players].each do |player,attribute_hash|
+      if attribute_hash[:shoe] > shoe_size
+        shoe_size = attribute_hash[:shoe]
+        rebounds  = attribute_hash[:rebounds]
+  end
+end
+
+end
+end
+rebounds
+end
+
+puts big_shoe_rebounds
