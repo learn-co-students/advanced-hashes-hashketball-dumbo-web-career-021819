@@ -113,6 +113,22 @@ game_hash.values.each do |team|
   rebounds
 end
 
+def most_points_scored
+  most_scores = 0
+  shot_taker = nil
+  game_hash.values.each do |team|
+    team[:players].each do |player|
+      if player[:points] > most_scores
+        most_scores = player[:points]
+        shot_taker = player[:player_name]
+        binding.pry
+      end
+    end
+  end
+shot_taker
+end
+
+
 # #==========================================vfocus code
 # def game_hash
 # {
