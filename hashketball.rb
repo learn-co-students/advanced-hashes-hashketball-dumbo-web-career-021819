@@ -232,14 +232,15 @@ end
 #Use binding.pry to drop into your method and understand what it is returning and why.
 
 def big_shoe_rebounds
-  shoe_size =0
+  shoe_size =0 #creates a lowest size shoe_size
   rebounds = 0
 game_hash[:home][:players].each do |player,attribute_hash|
-  if attribute_hash[:shoe] > shoe_size
+  if attribute_hash[:shoe] > shoe_size #every shoe_size that is bigger than the last will overwrite the array.
     shoe_size = attribute_hash[:shoe]
     rebounds  = attribute_hash[:rebounds]
   end
 end
+#repeat process for the away side of the hash
 game_hash[:away][:players].each do |player,attribute_hash|
       if attribute_hash[:shoe] > shoe_size
         shoe_size = attribute_hash[:shoe]
