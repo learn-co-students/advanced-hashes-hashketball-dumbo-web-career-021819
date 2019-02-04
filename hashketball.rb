@@ -122,15 +122,20 @@ def game_hash
 end
 
 def num_points_scored(players_name)
+  #begin terate through first layer of hash
 game_hash.each do |team,attribute|
   attribute.each do |opt1, opt2|
+    #find the option that has players
     if opt1 == :players
       opt2.each do |name,attribute|
+        #returns the name of player defined in the function argument
         if name == players_name
         #print "#{name}: "
         attribute.each do |result,value|
+          #finds the amount of points associated with player name
           if result == :points
             return value
+            #uses a return to end the function once the value is found for the players points
 
           end
         end
@@ -148,9 +153,11 @@ def shoe_size(players_name)
       if opt1 == :players
         opt2.each do |name,attribute|
           if name == players_name
+            #finds players name as stated in function arguments
           #print "#{name}: "
           attribute.each do |result,value|
             if result == :shoe
+              #returns the shoesize of the player
               return value
 
             end
@@ -165,6 +172,7 @@ def shoe_size(players_name)
 
 def team_colors(teamname)
 if game_hash[:home][:team_name] == teamname
+  #returns the arrar if team_name matches teamname
   game_hash[:home][:colors]
 elsif game_hash[:away][:team_name] == teamname
   game_hash[:away][:colors]
@@ -173,9 +181,9 @@ end
 
 #Build a method, team_names, that operates on the game hash to return an array of the team names.
 def team_names
-  arrayOfTeamNames = []
+  arrayOfTeamNames = [] #initialize new hash
   arrayOfTeamNames << game_hash[:home][:team_name]
-  arrayOfTeamNames << game_hash[:away][:team_name]
+  arrayOfTeamNames << game_hash[:away][:team_name] #shovel it with the data
 end
 
 #Build a method, player_numbers, that takes in an argument of a team name and returns an array of the jersey number's for that team.
@@ -230,16 +238,15 @@ game_hash[:home][:players].each do |player,attribute_hash|
   if attribute_hash[:shoe] > shoe_size
     shoe_size = attribute_hash[:shoe]
     rebounds  = attribute_hash[:rebounds]
+  end
+end
 game_hash[:away][:players].each do |player,attribute_hash|
       if attribute_hash[:shoe] > shoe_size
         shoe_size = attribute_hash[:shoe]
         rebounds  = attribute_hash[:rebounds]
-  end
-end
-
 end
 end
 rebounds
 end
 
-puts big_shoe_rebounds
+#puts big_shoe_rebounds
