@@ -196,3 +196,73 @@ def big_shoe_rebounds
   }
 end
 
+#bonus
+
+def most_points_scored
+  most_points = ''
+  highest_score = 0
+  game_hash.each { |location, team_info|
+    team_info[:players].each { |players, stats|
+      if stats[:points].to_i > highest_score
+        highest_score = stats[:points]
+        most_points = players.to_s
+      end
+    }
+  }
+  
+  return most_points
+end
+
+def winning_team
+  highest_score = 0
+  better_team = ''
+  
+  game_hash.each { |location, team_info|
+    team_points = 0
+    
+    team_info[:players].each { |players, stats|
+      team_points += stats[:points]
+    }
+    
+    if team_points > highest_score
+      highest_score = team_points
+      better_team = team_info[:team_name]
+    end
+  }
+  
+  return better_team
+end
+
+def player_with_longest_name
+  longest_name = ''
+  length = 0
+  
+  game_hash.each { |location, team_info|
+    team_info[:players].each { |player, stats|
+      if player.to_s.length > length
+        length = player.to_s.length
+        longest_name = player.to_s
+      end
+    }
+  }
+  
+  return longest_name
+end
+
+#super bonus
+def long_name_steals_a_ton?
+  longest = player_with_longest_name
+  most_steals = ''
+  steal_score = 0
+  
+  game_hash.each { |location, team_info|
+    team_info[:players].each { |players, stats|
+      if stats[:steals].to_i > steal_score
+        steal_score = stats[:steals]
+        most_steals = players.to_s
+      end
+    }
+  }
+  
+  return longest == most_steals
+end
