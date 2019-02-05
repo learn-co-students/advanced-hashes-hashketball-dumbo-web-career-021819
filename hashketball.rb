@@ -120,6 +120,23 @@ end
 
 # game_hash[:home][:players]["Alan Anderson"][:points]
 
+def player_by_number(number)
+  game_hash.each do |side, team_data|
+    team_data.each do |attribute, data|
+      if attribute == :players
+        data.each do |players, stats|
+          stats.each do |type, item|
+            if type == :number && item == number
+              return players
+            end
+          end
+        end
+      end
+    end
+  end
+end
+
+
 def num_points_scored(player_name)
   points_scored = []
   game_hash.each do |side, team_data|
@@ -241,4 +258,4 @@ def big_shoe_rebounds
   player_rebounds = player_stats(player_w_biggest_shoe)[:rebounds]
 end
 
-puts big_shoe_rebounds
+puts player_by_number(33)
