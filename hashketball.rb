@@ -49,7 +49,7 @@ def num_points_scored(player_name) #sends back the points per player
   answer
 end
 
-def shoe_size(player_name)
+def shoe_size(player_name) # sends the shoe size of each player
 size = nil
 game_hash.values.each do |team|
     team[:players].each do |player|
@@ -61,7 +61,7 @@ game_hash.values.each do |team|
 size
 end
 
-def team_colors(team_name)
+def team_colors(team_name) # sends teams colors depending on team specified
 color = nil
 game_hash.values.each do |team|
     if team[:team_name] == (team_name)
@@ -89,7 +89,7 @@ game_hash.values.each do |team|
 jersey
 end
 
-def player_stats(player_name)
+def player_stats(player_name)# gives stats of all players
 game_hash.values.each do |team|
  team[:players].each do |player|
    #binding.pry
@@ -101,7 +101,7 @@ game_hash.values.each do |team|
   end
 end
 
-def big_shoe_rebounds
+def big_shoe_rebounds#shows # of rebounds for the biggest feet
 big_feet = 0
 rebounds = 0
 game_hash.values.each do |team|
@@ -113,7 +113,7 @@ game_hash.values.each do |team|
   rebounds
 end
 
-def most_points_scored
+def most_points_scored #which player scored the most
   most_scores = 0
   shot_taker = nil
   game_hash.values.each do |team|
@@ -121,103 +121,45 @@ def most_points_scored
       if player[:points] > most_scores
         most_scores = player[:points]
         shot_taker = player[:player_name]
-        binding.pry
+      #  binding.pry
       end
     end
   end
 shot_taker
 end
 
+def winning_team #which team won the game
+  best_team = {}
+  game_hash.values.each do |team_stats|
+    team_points = 0
+    team_stats[:players].each do |player|
+      team_points = team_points + player[:points]
+    end
+    best_team[team_stats[:team_name]] = team_points
+  end
+  best_team.key(best_team.values.max)
+  #binding.pry
+end
 
-# #==========================================vfocus code
-# def game_hash
-# {
-#   :home =>{
-#     :team_name => "Brooklyn Nets",
-#     :colors => ["Black", "White"],
-#     :players => {
-#   "Alan Anderson": {number: 0, shoe: 16, points: 22, rebounds: 12, assists: 12, steals: 3, blocks: 1, slam_dunks: 1},
-#   "Reggie Evans": { number: 30, shoe: 14, points: 12, rebounds: 12, assists: 12, steals: 12, blocks: 12, slam_dunks: 7},
-#   "Brook Lopez": {number: 11, shoe: 17, points: 17, rebounds: 19, assists: 10, steals: 3, blocks: 1, slam_dunks: 15},
-#   "Mason Plumlee": {number: 1, shoe: 19, points: 26, rebounds: 12, assists: 6, steals: 3, blocks: 8, slam_dunks: 5},
-#   "Jason Terry": {number: 31, shoe: 15, points: 19, rebounds: 2, assists: 2, steals: 4, blocks: 11, slam_dunks: 1}
-#   }
-# },
-#   :away =>{
-#     :team_name => "Charlotte Hornets",
-#     :colors => ["Turquoise", "Purple"],
-#     :players => {
-#        "Jeff Adrien": {number: 4, shoe: 18, points: 10, rebounds: 1, assists: 1, steals: 2, blocks: 7, slam_dunks: 2},
-#       "Bismak Biyombo": {number: 0, shoe: 16, points: 12, rebounds: 4, assists: 7, steals: 7, blocks: 15, slam_dunks: 10},
-#       "DeSagna Diop": {number: 2, shoe: 14, points: 24, rebounds: 12, assists: 12, steals: 4, blocks: 5, slam_dunks: 5},
-#       "Ben Gordon": {number: 8, shoe: 15, points: 33, rebounds: 3, assists: 2, steals: 1, blocks: 1, slam_dunks: 0},
-#       "Jason Terry": {number: 33, shoe: 15, points: 6, rebounds: 12, assists: 12, steals: 22, blocks: 5, slam_dunks: 12}
-#   }
-# }
-# }
-# end
-# #==========================================^good code
-#
-# def num_points_scored(player_names)
-#binding.pry==================================================
-#   new_thing = game_hash[:home][:players].merge(game_hash[:away][:players])
-#   #new_thing.fetch(points)
-# if new_thing[:players] == player_names
-#   puts t_f
-#   #answer = new_thing.fetch("points")
-# end
-#
-# binding.pry
-# end=========================================================
-#focus code v
- #  scores = []
- #  game_hash.each do |teams, data|
- #    binding.pry
- #    data[:players].each do |stats|
- #      binding.pry
- #
- #
- #            if stats[:name].values == player_names
- #               scores = stats[:points]
- #              binding.pry
- #            end
- #      end
- #    end
- # scores
- #
- #
- #  end
+def player_with_longest_name #shows longest player naem
+longest_name = []
+game_hash.values.each do |team|
+  team[:players].each do |player|
+    #if player[:palyer_name].length > longest_name
+      longest_name << player[:player_name]
+#    end
+  end
+end
+longest_name.max_by {|names| names.length}
+end
 
-
-#num_points_scored(player_names)===============================================
-
-
-  #   score =[]
-  # game_hash[:away][:players].each do |names, data|
-  #     score = data[:points]
-  # #binding.pry
-  #       score
-
-#   player_stats
-# end
-
-# home_points = game_hash[:home][:players].each {|points, value|}
-# away_points = game_hash[:home][:players].each {|points, value|}
-# end
-
-# def good_practices
-#   game_hash.each do |location, team_data|
-#     #are you ABSOLUTELY SURE what 'location' and 'team data' are? use binding.pry to find out!
-#     binding.pry
-#       team_data.each do |attribute, data|
-#         #are you ABSOLUTELY SURE what 'attribute' and 'team data' are? use binding.pry to find out!
-#         binding.pry
-#
-#         #what is 'data' at each loop through out .each block? when will the following line of code work and when will it break?
-#         data.each do |data_item|
-#             binding.pry
-#       end
-#     end
-#   end
-# end
-# #good_practices
+def long_name_steals_a_ton?
+  longest_name = {}
+  game_hash.values.each do |team|
+    team[:players].each do |player|
+      longest_name[player[:player_name]] = player[:steals]
+    end
+  end
+most_steals = longest_name.values.max
+longest_name[longest_name.key(most_steals)] == most_steals
+end
