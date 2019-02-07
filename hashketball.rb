@@ -153,7 +153,7 @@ end
 longest_name.max_by {|names| names.length}
 end
 
-def long_name_steals_a_ton?
+def long_name_steals_a_ton? #returns T or F if most steals player has longest name
   longest_name = {}
   game_hash.values.each do |team|
     team[:players].each do |player|
@@ -162,4 +162,5 @@ def long_name_steals_a_ton?
   end
 most_steals = longest_name.values.max
 longest_name[longest_name.key(most_steals)] == most_steals
+#binding.pry
 end
