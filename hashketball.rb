@@ -224,3 +224,78 @@ game_hash.each do |home_away, team_info|
 end
 end
 end
+
+def most_points_scored
+most_points = 0
+top_player = ""
+game_hash.each do |home_away, team_info|
+  team_info.each do |category, value|
+    if category == :players
+      value.each do |name, stats|
+        if stats[:points] > most_points
+          top_player = name
+          most_points = stats[:points]
+        end
+      end
+    end
+  end
+end
+top_player
+end
+
+def winning_team
+  winner = []
+  game_hash.each do |home_away, team_info|
+    team_info.each do |category, value|
+      point_total = 0
+      if category == :players
+        value.each do |name, stats|
+          point_total += stats[:points]
+        end
+        winner << team_info[:team_name]
+        winner << point_total.to_i
+      end
+    end
+  end
+  if winner[1] > winner[3]
+    winner[0]
+  else
+    winner[2]
+  end
+end
+
+def player_with_longest_name
+  player_name_array= []
+  longest_name = ""
+  game_hash.each do |home_away, team_info|
+    team_info.each do |category, value|
+      if category == :players
+        value. each do |name, stats|
+        if player_name_array.size < name.split("").size
+          longest_name = name
+        end
+      end
+    end
+    end
+  end
+  longest_name
+end
+
+def long_name_steals_a_ton?
+  player_name_array= []
+  longest_name = ""
+  most_steals = 0
+  true_false = false
+  game_hash.each do |home_away, team_info|
+    team_info.each do |category, value|
+      if category == :players
+        value. each do |name, stats|
+        if player_name_array.size < name.split("").size && stats[:steals] > most_steals
+          true_false = true
+        end
+      end
+    end
+    end
+  end
+  true_false
+end
