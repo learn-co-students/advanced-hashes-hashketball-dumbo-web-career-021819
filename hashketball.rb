@@ -159,10 +159,10 @@ def player_numbers(team_name)
     if team_info[:team_name] == team_name
     team_info.each do |category, value|
       if category == :players
-      value.each do |stat, num|
-        num.each do |type, thing|
+      value.each do |name, stats|
+        stats.each do |type, num|
         if type == :number
-          numbers_array << thing
+          numbers_array << num
         end
       end
     end
@@ -178,10 +178,10 @@ def player_stats(player_name)
   game_hash.each do |home_away, team_info|
       team_info.each do |category, value|
           if category == :players
-            value.each do |stat, num|
-                if stat == player_name
-                  num.each do |x,y|
-                  stat_hash[x] = y
+            value.each do |name, stats|
+                if name == player_name
+                  stats.each do |type,num|
+                  stat_hash[type] = num
                 end
             end
           end
@@ -196,11 +196,11 @@ def big_shoe_rebounds
   game_hash.each do |home_away, team_info|
     team_info.each do |category, value|
       if category == :players
-        value.each do |stat, num|
-          num.each do |type, thing|
+        value.each do |name, stats|
+          stats.each do |type, num|
             if type == :shoe
-              if thing > shoe_size
-              shoe_size = thing
+              if num > shoe_size
+              shoe_size = num
             end
           end
         end
@@ -211,11 +211,11 @@ end
 game_hash.each do |home_away, team_info|
   team_info.each do |category, value|
     if category == :players
-      value.each do |stat, num|
-        num.each do |type, thing|
+      value.each do |name, stats|
+        stats.each do |type, num|
           if type == :shoe
-            if thing == shoe_size
-            return num[:rebounds]
+            if num == shoe_size
+            return stats[:rebounds]
           end
         end
       end
