@@ -273,6 +273,8 @@ def player_with_longest_name
         value. each do |name, stats|
         if player_name_array.size < name.split("").size
           longest_name = name
+          player_name_array.clear
+          player_name_array << name.split("")
         end
       end
     end
@@ -292,6 +294,9 @@ def long_name_steals_a_ton?
         value. each do |name, stats|
         if player_name_array.size < name.split("").size && stats[:steals] > most_steals
           true_false = true
+          player_name_array.clear
+          player_name_array << name.split("")
+          most_steals = stats[:steals]
         end
       end
     end
