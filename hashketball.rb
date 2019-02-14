@@ -66,10 +66,15 @@ def player_stats(name)
 end
 
 def player_numbers(name) #that takes in an argument of a team name and returns an array of the jersey number's for that team
-  game_hash[:home][:players].collect do |player_name, player_data|
-      player_data[:number]
+  game_hash.each do |location, team_data|
+    if name == team_data[:team_name] then
+      return team_data[:players].collect do |player_name, player_data|
+        player_data[:number]
+      end
+    end
   end
 end
+
 
 def big_shoe_rebounds() #return the number of rebounds associated with the player that has the largest shoe size.
     game_hash[:home][:players].each do |name, player_hash|
