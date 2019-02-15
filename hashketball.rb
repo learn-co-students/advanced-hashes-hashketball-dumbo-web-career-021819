@@ -270,13 +270,11 @@ end
 
 def player_with_longest_name
   player_name_array= []
-  longest_name = ""
   game_hash.each do |home_away, team_info|
     team_info.each do |category, value|
       if category == :players
         value. each do |name, stats|
         if player_name_array.size < name.split("").size
-          longest_name = name
           player_name_array.clear
           player_name_array << name.split("")
         end
@@ -284,7 +282,7 @@ def player_with_longest_name
     end
     end
   end
-  longest_name
+  player_name_array.join("")
 end
 
 def long_name_steals_a_ton?
