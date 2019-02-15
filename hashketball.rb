@@ -125,6 +125,22 @@ game_hash.each do |home_away, team_info|
   return score
 end
 
+def player_by_number(num)
+  player_array = []
+  game_hash.each do |home_away, team_info|
+    team_info.each do |category, value|
+      if category == :players
+        value.each do |name, stats|
+          if stats[:number] == num
+            player_array << name
+          end
+        end
+      end
+    end
+  end
+  player_array[0]
+end
+
 def shoe_size(player)
   size = ""
   game_hash.each do |home_away, team_info|
@@ -193,6 +209,7 @@ end
 
 def big_shoe_rebounds
   shoe_size = 0
+  rebound_stat = 0
   game_hash.each do |home_away, team_info|
     team_info.each do |category, value|
       if category == :players
@@ -200,6 +217,7 @@ def big_shoe_rebounds
           stats.each do |type, num|
             if type == :shoe
               if num > shoe_size
+              rebound_stat = stats[:rebounds]
               shoe_size = num
             end
           end
@@ -208,21 +226,7 @@ def big_shoe_rebounds
     end
   end
 end
-game_hash.each do |home_away, team_info|
-  team_info.each do |category, value|
-    if category == :players
-      value.each do |name, stats|
-        stats.each do |type, num|
-          if type == :shoe
-            if num == shoe_size
-            return stats[:rebounds]
-          end
-        end
-      end
-    end
-  end
-end
-end
+ return rebound_stat
 end
 
 def most_points_scored
