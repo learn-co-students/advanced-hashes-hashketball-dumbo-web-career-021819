@@ -1,3 +1,4 @@
+require 'pry'
 def game_hash
     {
         home: {
@@ -117,60 +118,63 @@ def game_hash
 }
 end
 
+def player_collection
+ game_hash[:home][:players] + game_hash[:away][:players]
+end
+
+def team_collection
+  game_hash.values
+end
+
 def num_points_scored(name)
-  players = game_hash[:home][:players] + game_hash[:away][:players]
-  player = players.find do |p|
+  player = player_collection.find do |p|
     p[:player_name] == name
   end
   player[:points]
 end
 
 def shoe_size(name)
-  players = game_hash[:home][:players] + game_hash[:away][:players]
-  player = players.find do |p|
+  player = player_collection.find do |p|
     p[:player_name] == name
   end
   player[:shoe]
 end
 
-def team_colors(team_name)
-  teams = game_hash.values
-  team = teams.find do |t|
-    t[:team_name] == team_name
-  end
-  team[:colors]
+def team_colors(team)
+  team = team_collection.find do |t|
+  t[:team_name] == team
+end
+team[:colors]
 end
 
 def team_names
-  game_hash.values.collect do |team|
-    team[:team_name]
+    team_collection.collect do |t|
+    t[:team_name]
   end
 end
 
-def player_numbers(team_name)
-  teams = game_hash.values
-  team = teams.find do |t|
-    t[:team_name] == team_name
+def player_numbers(team)
+  team = team_collection.find do |t|
+    t[:team_name] == team
   end
   team[:players].collect do |p|
     p[:number]
   end
 end
 
-def player_stats(player_name)
-  players = game_hash[:home][:players] + game_hash[:away][:players]
-  player = players.find do |p|
-    p[:player_name] == player_name
-  end
-  player.reject do |k,v|
-    k == :player_name
-  end
+def player_stats(name)
+    player = player_collection.find do |p|
+      p[:player_name] == name
+    end
+    player.reject do |v|
+      v == :player_name
+    end
 end
 
 def big_shoe_rebounds
-  players = game_hash[:home][:players] + game_hash[:away][:players]
-  p = players.sort_by do |player|
-    player[:shoe]
+  player = player_collection.sort_by do |p|
+    p[:shoe]
   end
-  p.last[:rebounds]
+  player.last[:rebounds]
 end
+
